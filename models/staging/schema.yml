@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: staging
-    database: workspace # This is the default catalog in Databricks
-    schema: nyc_taxi_data # The schema where you created your raw tables
+    database: prod # This is the default catalog in Databricks
+    schema: bronze # The schema where you created your raw tables
     tables:
       - name: green_tripdata_raw
       - name: yellow_tripdata_raw
