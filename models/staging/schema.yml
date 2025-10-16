@@ -1,0 +1,121 @@
+version: 2
+
+sources:
+  - name: staging
+    database: workspace # This is the default catalog in Databricks
+    schema: nyc_taxi_data # The schema where you created your raw tables
+    tables:
+      - name: green_tripdata_raw
+      - name: yellow_tripdata_raw
+
+models:
+  - name: stg_green_tripdata
+    description: Staged green taxi trip data from 2024. Cleansed and prepared for analytics.
+    columns:
+      - name: tripid
+        description: The unique identifier for each trip.
+        tests:
+          - unique
+          - not_null
+
+      - name: vendorid
+        description: A code indicating the TPEP provider.
+
+      - name: pickup_datetime
+        description: The date and time when the meter was engaged.
+        tests:
+          - not_null
+
+      - name: dropoff_datetime
+        description: The date and time when the meter was disengaged.
+
+      - name: ratecodeid
+        description: The final rate code in effect at the end of the trip.
+
+      - name: pickup_locationid
+        description: TLC Taxi Zone in which the meter was engaged.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('taxi_zone_lookup')
+                field: LocationID
+                severity: warn
+
+      - name: dropoff_locationid
+        description: TLC Taxi Zone in which the meter was disengaged.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('taxi_zone_lookup')
+                field: LocationID
+                severity: warn
+
+      - name: payment_type
+        description: A numeric code signifying how the passenger paid for the trip.
+        tests:
+          - accepted_values:
+              arguments:
+                values: "{{ var('payment_type_values') }}"
+
+      - name: payment_type_description
+        description: The description of the payment type.
+
+      - name: cbd_congestion_fee
+        description: A fee charged for trips in the central business district.
+
+  - name: stg_yellow_tripdata
+    description: Staged yellow taxi trip data from 2024. Cleansed and prepared for analytics.
+    columns:
+      - name: tripid
+        description: The unique identifier for each trip.
+        tests:
+          - unique
+          - not_null
+
+      - name: vendorid
+        description: A code indicating the TPEP provider.
+
+      - name: pickup_datetime
+        description: The date and time when the meter was engaged.
+        tests:
+          - not_null
+
+      - name: dropoff_datetime
+        description: The date and time when the meter was disengaged.
+
+      - name: ratecodeid
+        description: The final rate code in effect at the end of the trip.
+
+      - name: pickup_locationid
+        description: TLC Taxi Zone in which the meter was engaged.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('taxi_zone_lookup')
+                field: LocationID
+                severity: warn
+
+      - name: dropoff_locationid
+        description: TLC Taxi Zone in which the meter was disengaged.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('taxi_zone_lookup')
+                field: LocationID
+                severity: warn
+
+      - name: payment_type
+        description: A numeric code signifying how the passenger paid for the trip.
+        tests:
+          - accepted_values:
+              arguments:
+                values: "{{ var('payment_type_values') }}"
+
+      - name: payment_type_description
+        description: The description of the payment type.
+
+      - name: airport_fee
+        description: A fee for pickups at LaGuardia and JFK airports.
+
+      - name: cbd_congestion_fee
+        description: A fee charged for trips in the central business district.

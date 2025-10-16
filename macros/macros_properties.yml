@@ -1,0 +1,10 @@
+version: 2
+
+macros:
+  - name: get_payment_type_description
+    description: >
+      A macro to map the numeric payment_type code to its string description.
+    arguments:
+      - name: payment_type
+        type: integer
+        description: The numeric code for the payment type (e.g., 1, 2, 3).

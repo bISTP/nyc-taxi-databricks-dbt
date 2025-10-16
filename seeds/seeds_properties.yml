@@ -1,0 +1,23 @@
+version: 2
+
+seeds:
+  - name: taxi_zone_lookup
+    description: A mapping of LocationIDs to taxi zones, boroughs, and service zones.
+    config:
+      column_types:
+        LocationID: integer
+        Borough: string
+        Zone: string
+        service_zone: string
+    columns:
+      - name: LocationID
+        description: The unique identifier for the taxi zone.
+        tests:
+          - unique
+          - not_null
+      - name: Borough
+        description: The NYC borough where the zone is located.
+      - name: Zone
+        description: The name of the taxi zone.
+      - name: service_zone
+        description: The service zone category (e.g., EWR, Boro Zone).

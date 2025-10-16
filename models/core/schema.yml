@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: dim_zones
+    description: A dimension table containing details about the NYC taxi zones.
+    columns:
+      - name: locationid
+        description: The unique identifier for the taxi zone.
+        tests:
+          - unique
+          - not_null
+      - name: borough
+        description: The NYC borough where the zone is located.
+      - name: zone
+        description: The name of the taxi zone.
+      - name: service_zone
+        description: The service zone category (e.g., Green, Yellow, EWR).
+
+  - name: fact_trips
+    description: A fact table containing all NYC taxi trips, unioning green and yellow taxi data. This is an incremental model.
+    columns:
+      - name: tripid
+        description: The unique identifier for each trip.
+        tests:
+          - unique
+          - not_null
+      - name: vendorid
+        description: A code indicating the TPEP provider.
+      - name: service_type
+        description: The type of taxi service (Green or Yellow).
+      - name: pickup_locationid
+        description: The taxi zone ID where the trip began.
+      - name: dropoff_locationid
+        description: The taxi zone ID where the trip ended.
+      - name: pickup_datetime
+        description: The timestamp when the trip began.
+      - name: total_amount
+        description: The total amount paid for the trip.
+      - name: payment_type
+        description: A numeric code for the payment method.
+      - name: payment_type_description
+        description: The description of the payment method.
+      - name: airport_fee
+        description: Fee for pickups at LaGuardia and JFK airports (Yellow taxis only).
+      - name: cbd_congestion_fee
+        description: Fee for trips in the central business district.
+
+  - name: dm_monthly_zone_revenue
+    description: A data mart table aggregating monthly revenue by pickup zone.
+    columns:
+      - name: pickup_borough
+        description: The borough where trips originated.
+      - name: pickup_zone
+        description: The taxi zone where trips originated.
+      - name: revenue_month
+        description: The month for which revenue is aggregated.
+      - name: total_monthly_trips
+        description: The total number of trips for the month in that zone.
+      - name: total_monthly_revenue
+        description: The total revenue generated for the month in that zone.
+      - name: average_revenue_per_trip
+        description: The average revenue per trip for the month in that zone.
