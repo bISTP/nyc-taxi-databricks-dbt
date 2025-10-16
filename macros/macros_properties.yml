@@ -8,3 +8,16 @@ macros:
       - name: payment_type
         type: integer
         description: The numeric code for the payment type (e.g., 1, 2, 3).
+
+  - name: generate_schema_name
+    description: >
+      Overrides dbt's default schema generation. 
+      In 'dev' environments, it forces all models into the default target schema (e.g., dbt_bistp).
+      In 'prod' environments, it allows models to be placed in custom schemas (e.g., 'gold').
+    arguments:
+      - name: custom_schema_name
+        type: string
+        description: The custom schema name provided in a model's config block.
+      - name: node
+        type: object
+        description: The dbt node object for the model being rendered.
