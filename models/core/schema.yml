@@ -46,17 +46,49 @@ models:
         description: Fee for trips in the central business district.
 
   - name: dm_monthly_zone_revenue
-    description: A data mart table aggregating monthly revenue by pickup zone.
+    description: A data mart table aggregating monthly taxi metrics by pickup zone and service type. This is the primary model for BI and reporting.
     columns:
       - name: pickup_borough
         description: The borough where trips originated.
+        tests:
+          - not_null
       - name: pickup_zone
         description: The taxi zone where trips originated.
+        tests:
+          - not_null
+      - name: service_type
+        description: The type of taxi service (Green or Yellow).
+        tests:
+          - not_null
       - name: revenue_month
-        description: The month for which revenue is aggregated.
+        description: The month for which the metrics are aggregated.
+        tests:
+          - not_null
+      - name: revenue_monthly_fare
+        description: Total monthly revenue from the base fare.
+      - name: revenue_monthly_extra
+        description: Total monthly revenue from extra charges (e.g., rush hour).
+      - name: revenue_monthly_mta_tax
+        description: Total monthly revenue from MTA tax.
+      - name: revenue_monthly_tip_amount
+        description: Total monthly revenue from tips.
+      - name: revenue_monthly_tolls_amount
+        description: Total monthly revenue from tolls.
+      - name: revenue_monthly_ehail_fee
+        description: Total monthly revenue from e-hail fees.
+      - name: revenue_monthly_improvement_surcharge
+        description: Total monthly revenue from improvement surcharges.
+      - name: revenue_monthly_congestion_surcharge
+        description: Total monthly revenue from standard congestion surcharges.
+      - name: revenue_monthly_cbd_congestion_fee
+        description: Total monthly revenue from the Central Business District congestion fee.
+      - name: revenue_monthly_airport_fee
+        description: Total monthly revenue from airport fees.
+      - name: revenue_monthly_total_amount
+        description: The total gross monthly revenue, summing all components.
       - name: total_monthly_trips
-        description: The total number of trips for the month in that zone.
-      - name: total_monthly_revenue
-        description: The total revenue generated for the month in that zone.
-      - name: average_revenue_per_trip
-        description: The average revenue per trip for the month in that zone.
+        description: The total number of trips for the month in that zone and service type.
+      - name: avg_monthly_passenger_count
+        description: The average number of passengers per trip for the month.
+      - name: avg_monthly_trip_distance
+        description: The average trip distance in miles for the month.
