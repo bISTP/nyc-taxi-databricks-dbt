@@ -2,8 +2,8 @@
 
     {%- set default_schema = target.schema -%}
 
-    {# Check if the target environment name is one of our known development names #}
-    {%- if target.name in ['dev', 'default'] -%}
+    {# Use target.database to reliably identify the development environment #}
+    {%- if target.database == 'dev' -%}
 
         {# If it is 'dev', ALWAYS use the default schema, ignoring any custom schema #}
         {{ default_schema }}
@@ -20,3 +20,4 @@
     {%- endif -%}
 
 {%- endmacro %}
+
