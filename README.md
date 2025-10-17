@@ -94,9 +94,12 @@ During development, several real-world challenges were encountered and solved, s
 
 ## dbt Lineage Graph (DAG)
 
-The Directed Acyclic Graph (DAG) shows the flow of data and dependencies from the raw sources to the final data mart after a successfull production run.
+The Directed Acyclic Graph (DAG) shows the flow of data and dependencies from the raw sources to the final data mart.
 
 > **Lineage Graph**
+>![Lineage Graph](/assets/images/dbt-dag.png)
+
+> **Success production run - full refresh**
 >![Lineage Graph](/assets/images/dbt-dag-prod.png)
 
 ---
