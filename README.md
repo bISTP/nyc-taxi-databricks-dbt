@@ -16,7 +16,7 @@ The platform follows a modern ELT (Extract, Load, Transform) paradigm, leveragin
 `Raw Data (Parquet) -> GCS (Data Lake) -> Databricks (Compute & Lakehouse) -> dbt Cloud (Transformation & Orchestration) -> Gold Layer (BI-Ready Tables)`
 
 > **Architecure Diagram**
->![Architecure Diagram](/assets/images/architecture.png)
+>![Architecure Diagram](/assets/images/architecture-full-dark.png)
 
 ---
 
